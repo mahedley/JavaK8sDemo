@@ -1,5 +1,5 @@
 jeeapp:
-  image: mdhavnetregistry.azurecr.io/avnetwas
+  image: youracr.azurecr.io/demowas
   imagetag: latest
   imagesecret: regsecret
   internalPort: 9080
@@ -7,7 +7,7 @@ jeeapp:
   replicaCount: 2
 
 apache:
-  image: mdhavnetregistry.azurecr.io/avnetapache
+  image: youracr.azurecr.io/demoapache
   imagetag: latest
   imagesecret: regsecret
   internalPort: 80
