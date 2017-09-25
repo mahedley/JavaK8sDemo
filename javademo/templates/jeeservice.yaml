@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "fullname" . }}-{{ .Values.jeeservice.servicename }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.jeeservice.type }}
+  ports:
+    - port: {{ .Values.jeeservice.externalPort }}
+      targetPort: {{ .Values.jeeservice.internalPort }}
+      protocol: TCP
+      name: {{ .Values.jeeservice.servicename }}
+  selector:
+    app: {{ template "name" . }}
+    role: {{ .Values.jeeapp.role }}
+    release: {{ .Release.Name }}

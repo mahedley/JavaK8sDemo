@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}-was
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.jeeapp.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+        role: {{ .Values.jeeapp.role }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.jeeapp.image }}:{{ .Values.jeeapp.imagetag }}"
+          ports:
+            - containerPort: {{ .Values.jeeapp.internalPort }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.jeeapp.internalPort }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.jeeapp.internalPort }}

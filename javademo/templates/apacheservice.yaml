@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "fullname" . }}-{{ .Values.apacheservice.servicename }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.apacheservice.type }}
+  ports:
+    - port: {{ .Values.apacheservice.externalPort }}
+      targetPort: {{ .Values.apacheservice.internalPort }}
+      protocol: TCP
+      name: {{ .Values.apacheservice.servicename }}
+  selector:
+    app: {{ template "name" . }}
+    role: {{ .Values.apache.role }}
+    release: {{ .Release.Name }}

@@ -1,0 +1,29 @@
+jeeapp:
+  image: mdhavnetregistry.azurecr.io/avnetwas
+  imagetag: latest
+  imagesecret: regsecret
+  internalPort: 9080
+  role: backend
+  replicaCount: 2
+
+apache:
+  image: mdhavnetregistry.azurecr.io/avnetapache
+  imagetag: latest
+  imagesecret: regsecret
+  internalPort: 80
+  role: frontend
+  replicaCount: 8
+
+jeeservice:
+  type: ClusterIP
+  servicename: jeeservice
+  externalPort: 8080
+  internalPort: 9080
+  
+apacheservice:
+  type: LoadBalancer
+  servicename: apacheservice
+  externalPort: 80
+  internalPort: 80
+
+
