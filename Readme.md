@@ -26,7 +26,7 @@ Pre-Requisites
   - az group create --location WestUS --name yourregistrygroup
   - az acr create --name youracr --resource-group yourregistrygroup --sku Basic --admin-enabled=true
 7. Connect to your acr with Docker
-  - docker login youracr.azurecr.io -u youracr -p <admin pass>
+  - docker login youracr.azurecr.io -u youracr -p adminpw
 8. Push your images to your acr
   - docker image tag demowas youracr.azurecr.io/demowas
   - docker image tag demoapache youracr.azurecr.io/demoapache
@@ -38,11 +38,11 @@ Pre-Requisites
 10. Setup kubectl
   - Follow the instructions here https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-connect#connect-to-a-kubernetes-cluster
 11. Add your container registry to your cluster
-  - kubectl create secret docker-registry youracr.azurecr.io --docker-username=youracr --docker-password=<admin pw> --docker-email=fakemail@fake.com
+  - kubectl create secret docker-registry youracr.azurecr.io --docker-username=youracr --docker-password=adminpw --docker-email=fakemail@fake.com
 12. Deploy the helm template
   - helm install javademo
 13. Use kubectl to get the ip address of the apache service
   - kubectl get services
   - Record the public ip for the apacheservice once it's up
 14. Check that it works
-  - Use a browser to go to http://<apacheservice ip>
+  - Use a browser to go to http://apacheserviceip
