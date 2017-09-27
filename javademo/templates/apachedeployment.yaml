@@ -32,3 +32,6 @@ spec:
           env:
             - name: servicename
               value: {{ template "fullname" . }}-jeeservice:{{ .Values.jeeservice.externalPort }}
+      imagePullSecrets:
+          - name: {{ .Values.apache.imagesecret }}
+          

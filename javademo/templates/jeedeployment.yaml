@@ -19,6 +19,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.jeeapp.image }}:{{ .Values.jeeapp.imagetag }}"
+          
           ports:
             - containerPort: {{ .Values.jeeapp.internalPort }}
           livenessProbe:
@@ -29,3 +30,5 @@ spec:
             httpGet:
               path: /
               port: {{ .Values.jeeapp.internalPort }}
+      imagePullSecrets:
+        - name: {{ .Values.jeeapp.imagesecret }}
